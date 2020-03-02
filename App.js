@@ -11,9 +11,6 @@ import { AppContainer } from './src/navigation/index'
 import { setDeviceAndUserAuth } from "./src/firebase/functionsControl";
 
 
-
-
-
 export default class App extends Component {
 
   componentDidMount = () => {
