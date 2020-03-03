@@ -172,6 +172,19 @@ const analyticsReducers = (state = initalState, action) => {
                         }
                     }
                 }
+            } else if (action.payload === "Home") {
+                return {
+                    ...state,
+                    statistics: {
+                        ...state.statistics,
+                        ScreensSessionTime: {
+                            ...state.statistics.ScreensSessionTime,
+                            HomeScreen: state.statistics.ScreensSessionTime.HomeScreen + 1
+                        } 
+                    }
+                }
+
+
             }
     }
     return state;

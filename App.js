@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-// import { Text, View } from 'react-native'
+import { Text, View, StatusBar, AsyncStorage } from 'react-native'
 import 'react-native-gesture-handler';
 
 import { store, persistor } from './src/store';
@@ -13,7 +13,7 @@ import { setDeviceAndUserAuth } from "./src/firebase/functionsControl";
 
 export default class App extends Component {
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     setDeviceAndUserAuth();
   }
 
@@ -21,6 +21,7 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
+          <StatusBar backgroundColor="white" barStyle="light-content" />
           <AppContainer />
         </PersistGate>
       </Provider>

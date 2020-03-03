@@ -1,19 +1,22 @@
-const data = {
-    userFirebaseId: '',
-    createdAtFBAccount: '',
-    deviceName: '',
-    deviceYearClass: '',
-    appUserId: '',
+const initalState = {
+    lastChecked: '', //
+    userFirebaseId: '', //
+    createdAtFBAccount: '', //
+    lastLoginFB: '',//
+    deviceName: '',//
+    deviceYearClass: '',//
+    appUserId: '',//
     statistics: {
         lastSession: '',
+        lastSessionLoginDate: '',
         lastSessionTotalTime: '',
         TotalSessionTime: '',
         ScreensSessionTime: {
-            HomeScreen: '', // screen adı burada olacak ve string olarak süre eklenecek + olarak
-            TrashScreen: '',
-            AboutScreen: '',
-            EditScreen: '',
-            AddScreen: '',
+            HomeScreen: 0, // screen adı burada olacak ve string olarak süre eklenecek + olarak
+            TrashScreen: 0,
+            AboutScreen: 0,
+            EditScreen: 0,
+            AddScreen: 0,
         },
         ButtonsClicked: {
             Add: '',
@@ -31,6 +34,11 @@ const data = {
                 GetStarted: '',
 
             },
+            Menu: {
+                Home: 0,
+                About: 0,
+                Trash: 0,
+            },
             Dark: '',
             Light: '',
         },
@@ -45,11 +53,11 @@ const data = {
         },
         isSync: false,
         isAnonymous: true,
-        todos:[],
-        userInfo:{
-            username:'',
+        todos: [],
+        userInfo: {
+            username: '',
             password: '',
-            email:'',
+            email: '',
         }
     }
 }

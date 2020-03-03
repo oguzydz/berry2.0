@@ -23,12 +23,10 @@ export const screen_clicked = (screen) => async dispatch => {
 }
 
 
-export const screen_time = (screen) => async dispatch => {
-  
-    setInterval(() => {
-        dispatch({
-            type: actions.SCREEN_TIME,
-            payload: screen
-        })
-    }, 1000)
+export const screen_time = (screen, closed) => async dispatch => {
+    dispatch({
+        type: actions.SCREEN_TIME,
+        payload: screen
+    })
+
 }

@@ -19,6 +19,7 @@
     "ionicons": "^5.0.0",
     "normalizr": "^3.6.0",
     "react": "~16.9.0",
+    "react-dark-theme": "^1.1.1",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
     "react-native-gesture-handler": "~1.5.0",
@@ -35,6 +36,7 @@
     "react-navigation-drawer": "^2.3.4",
     "react-navigation-stack": "^2.1.1",
     "react-redux": "^7.2.0",
+    "react-toggle-theme": "^1.0.0",
     "redux": "^4.0.5",
     "redux-persist": "5.6.12",
     "redux-thunk": "^2.3.0"

@@ -1,27 +1,46 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, Text, Button, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux';
-import { store } from '../../store/index';
 import * as actions from '../../store/actions/analyticsActions';
+
+
+import Header from '../../components/Header';
 
 
 class HomeScreen extends Component {
 
-    componentWillMount = () => {
-        store.dispatch(actions.screen_time("Home"))
+
+    componentDidMount = () => {
+        this.focus = this.props.navigation.addListener('willFocus', () => {
+            const timer = setInterval(() => {
+                this.props.screen_time("Home")
+            }, 1000)
+
+            this.props.navigation.addListener('willBlur', () => {
+                clearInterval(timer)
+            })
+
+        })
+
+    }
+
+    getState = () => {
+        console.log(this.props.state)
     }
 
 
     render() {
 
+
+
         return (
-            <View>
-                <Text> textInComponent </Text>
-                <TouchableOpacity onPress={() => store.dispatch(actions.screen_clicked("Home"), console.log(store.getState()))}>
-                    <Text> Press Home </Text>
+            <View style={[styles.container, { backgroundColor: this.props.theme === "light" ? "#5639a1" : "#000", }]}>
+                <Header navigation={this.props.navigation} />
+                <TouchableOpacity onPress={() => this.props.navigation.navigate("TrashScreen")}>
+                    <Text>go trash</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Trash')}>
-                    <Text> Press Home </Text>
+                <TouchableOpacity onPress={this.getState}>
+                    <Text>getState</Text>
                 </TouchableOpacity>
             </View>
         )
@@ -30,5 +49,27 @@ class HomeScreen extends Component {
 
 
 
-export default HomeScreen
+
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: "#5639a1",
+    }
+})
+
+const mapStateToProps = (state) => {
+    return {
+        theme: state.theme.theme,
+        state: state
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        screen_time: (screen) => dispatch(actions.screen_time(screen)),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)
 

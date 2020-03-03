@@ -2118,6 +2118,11 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
+classnames@^2.2.5:
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
+  integrity sha512-JR/iSQOSt+LQIWwrwEzJ9uk0xfN3mTVYMwt1Ir5mUcSN6pU+V4zQFFaJsclJbPuAUQH+yfWef6tm7l1quW3C8Q==
+
 cli-cursor@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/cli-cursor/-/cli-cursor-2.1.0.tgz#b35dac376479facc3e94747d41d0d0f5238ffcb5"
@@ -4960,6 +4965,20 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-css-vars@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/react-css-vars/-/react-css-vars-1.2.1.tgz#b6cf62510fa4df0b51079633c2ba00204c5d29c9"
+  integrity sha512-vS5h2so/BEJlVznj2twsQyKUah7NPtJR8BCIfzAM0z2QmU+1u5BrvfiL2LVCtm1rEKFvXzH49tcG261XHjgiSw==
+
+react-dark-theme@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-dark-theme/-/react-dark-theme-1.1.1.tgz#b60be1245182f44b5144d085b78a18bd6dc1af05"
+  integrity sha512-p4cTzaQCqYryGKtIi+P//0wMnNGA0WgrhkzkLnTj7xOS1SjbDiMwJCGQS57tc6cCQ17SxNIkJa2Py1KUaqIXnA==
+  dependencies:
+    prop-types "^15.7.2"
+    react-css-vars "^1.2.1"
+    react-toggle "^4.0.2"
+
 react-devtools-core@^3.6.3:
   version "3.6.3"
   resolved "https://registry.yarnpkg.com/react-devtools-core/-/react-devtools-core-3.6.3.tgz#977d95b684c6ad28205f0c62e1e12c5f16675814"
@@ -5152,6 +5171,18 @@ react-timer-mixin@^0.13.4:
   version "0.13.4"
   resolved "https://registry.yarnpkg.com/react-timer-mixin/-/react-timer-mixin-0.13.4.tgz#75a00c3c94c13abe29b43d63b4c65a88fc8264d3"
   integrity sha512-4+ow23tp/Tv7hBM5Az5/Be/eKKF7DIvJ09voz5LyHGQaqqz9WV8YMs31eFvcYQs7d451LSg7kDJV70XYN/Ug/Q==
+
+react-toggle-theme@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-toggle-theme/-/react-toggle-theme-1.0.0.tgz#5f7beb3c87ae0d64d085b444fd998aabd1801273"
+  integrity sha512-dnCDNDngnQ465AR40hp+alw0X55hEAmYMGru46/wB8Knm6Ub/uWrzGfg7wrebi8cET6rpwlSj7Z9rxMTHhYNNA==
+
+react-toggle@^4.0.2:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/react-toggle/-/react-toggle-4.1.1.tgz#2317f67bf918ea3508a96b09dd383efd9da572af"
+  integrity sha512-+wXlMcSpg8SmnIXauMaZiKpR+r2wp2gMUteroejp2UTSqGTVvZLN+m9EhMzFARBKEw7KpQOwzCyfzeHeAndQGw==
+  dependencies:
+    classnames "^2.2.5"
 
 react@~16.9.0:
   version "16.9.0"
