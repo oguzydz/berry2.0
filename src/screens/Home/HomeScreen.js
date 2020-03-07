@@ -20,18 +20,17 @@ class HomeScreen extends Component {
                 clearInterval(timer)
             })
 
+            
         })
-
+ 
     }
 
     getState = () => {
-        console.log(this.props.state)
+        console.log(this.props)
     }
 
 
     render() {
-
-
 
         return (
             <View style={[styles.container, { backgroundColor: this.props.theme === "light" ? "#5639a1" : "#000", }]}>

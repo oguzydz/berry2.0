@@ -11,15 +11,20 @@ import MenuItem from './components/MenuItem'
 // Gerekli olanlar menü item classı
 // meni item içinde icon ekleme
 
-const { width, height } = Dimensions.get('window')
+const { width } = Dimensions.get('window')
 
 class Drawer extends Component {
+
+
     render() {
+
+        const nav = this.props.navigation;
+        const theme = this.props.theme;
         return (
-            <View style={styles.container}>
-                <MenuItem screen="TODOS" icon="albums" screenName="HomeScreen" nav={this.props.navigation} onPress={() => this.props.menu_clicked("Home")} />
-                <MenuItem screen="TRASH" icon="trash" screenName="TrashScreen" nav={this.props.navigation} onPress={() => this.props.menu_clicked("Trash")} />
-                <MenuItem screen="ABOUT" icon="finger-print" screenName="AboutScreen" nav={this.props.navigation} onPress={() => this.props.menu_clicked("About")} />
+            <View style={[styles.container, { backgroundColor: theme === "light" ? "#fff" : "#8c8b8c" }]}>
+                <MenuItem screen="TODOS" icon="albums" screenName="HomeScreen" screenSN="Home" nav={nav} activePage={nav.state.index} index={0} theme={theme} />
+                <MenuItem screen="TRASH" icon="trash" screenName="TrashScreen" screenSN="Trash" nav={nav} activePage={nav.state.index} index={2} theme={theme} />
+                <MenuItem screen="ABOUT" icon="finger-print" screenName="AboutScreen" screenSN="About" nav={nav} activePage={nav.state.index} index={3} theme={theme} />
             </View>
         )
     }
@@ -28,7 +33,6 @@ class Drawer extends Component {
 const mapStateToProps = (state) => {
     return {
         theme: state.theme.theme,
-
     }
 }
 
@@ -42,8 +46,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(Drawer)
 
 const styles = StyleSheet.create({
     container: {
-        width: width / 2,
-        padding: 20
+        width: width / 1.5,
+        paddingTop: 20,
+        flexDirection: "column",
+        flex: 1,
     }
-
 })  

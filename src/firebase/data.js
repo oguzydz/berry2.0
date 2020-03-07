@@ -1,4 +1,4 @@
-const initalState = {
+export const initalState = {
     lastChecked: '', //
     userFirebaseId: '', //
     createdAtFBAccount: '', //
@@ -9,8 +9,8 @@ const initalState = {
     statistics: {
         lastSession: '',
         lastSessionLoginDate: '',
-        lastSessionTotalTime: '',
-        TotalSessionTime: '',
+        lastSessionTotalTime: 0,
+        TotalSessionTime: 0,
         ScreensSessionTime: {
             HomeScreen: 0, // screen adı burada olacak ve string olarak süre eklenecek + olarak
             TrashScreen: 0,
@@ -19,37 +19,36 @@ const initalState = {
             AddScreen: 0,
         },
         ButtonsClicked: {
-            Add: '',
-            Theme: '',
-            Edit: '',
-            Trash: '',
-            DeleteAll: '',
-            Recycle: '',
+            Add: 0,
+            Theme: 0,
+            Edit: 0,
+            Trash: 0,
+            DeleteAll: 0,
+            Recycle: 0,
             About: {
-                Linkedin: '',
-                Github: '',
-                Twitter: '',
-                Instagram: '',
-                WebSite: '',
-                GetStarted: '',
-
+                Linkedin: 0,
+                Github: 0,
+                Twitter: 0,
+                Instagram: 0,
+                WebSite: 0,
+                GetStarted: 0,
             },
             Menu: {
                 Home: 0,
                 About: 0,
                 Trash: 0,
             },
-            Dark: '',
-            Light: '',
+            Dark: 0,
+            Light: 0,
         },
         ThemeSessionTime: {
-            light: '',
-            dark: '',
+            light: 0,
+            dark: 0,
         },
         Ads: {
-            HomeBanner: '',
-            TrashBanner: '',
-            PopupAds: '',
+            HomeBanner: 0,
+            TrashBanner: 0,
+            PopupAds: 0,
         },
         isSync: false,
         isAnonymous: true,

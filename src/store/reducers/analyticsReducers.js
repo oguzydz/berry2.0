@@ -1,68 +1,5 @@
 import * as actions from '../actions/actionTypes'
-
-const initalState = {
-    lastChecked: '', //
-    userFirebaseId: '', //
-    createdAtFBAccount: '', //
-    lastLoginFB: '',//
-    deviceName: '',//
-    deviceYearClass: '',//
-    appUserId: '',//
-    statistics: {
-        lastSession: '',
-        lastSessionLoginDate: '',
-        lastSessionTotalTime: '',
-        TotalSessionTime: '',
-        ScreensSessionTime: {
-            HomeScreen: 0, // screen adı burada olacak ve string olarak süre eklenecek + olarak
-            TrashScreen: 0,
-            AboutScreen: 0,
-            EditScreen: 0,
-            AddScreen: 0,
-        },
-        ButtonsClicked: {
-            Add: '',
-            Theme: '',
-            Edit: '',
-            Trash: '',
-            DeleteAll: '',
-            Recycle: '',
-            About: {
-                Linkedin: '',
-                Github: '',
-                Twitter: '',
-                Instagram: '',
-                WebSite: '',
-                GetStarted: '',
-
-            },
-            Menu: {
-                Home: 0,
-                About: 0,
-                Trash: 0,
-            },
-            Dark: '',
-            Light: '',
-        },
-        ThemeSessionTime: {
-            light: '',
-            dark: '',
-        },
-        Ads: {
-            HomeBanner: '',
-            TrashBanner: '',
-            PopupAds: '',
-        },
-        isSync: false,
-        isAnonymous: true,
-        todos: [],
-        userInfo: {
-            username: '',
-            password: '',
-            email: '',
-        }
-    }
-}
+import { initalState } from '../../firebase/data'
 
 const analyticsReducers = (state = initalState, action) => {
     switch (action.type) {
@@ -72,6 +9,7 @@ const analyticsReducers = (state = initalState, action) => {
                 deviceName: action.payload.deviceName,
                 deviceYearClass: action.payload.deviceYearClass
             }
+        // Auth'ın için setup işlemi kullanıcı app'e ilk girdiğinde alınır.
         case actions.AUTH_USER:
             return {
                 ...state,
@@ -82,6 +20,7 @@ const analyticsReducers = (state = initalState, action) => {
                 userFirebaseId: action.payload.userFirebaseId,
                 createdAtFBAccount: action.payload.createdAtFBAccount,
             }
+        // Drawer Menü'de hangi buton menüsüne bastığını ölçüyor.
         case actions.SCREEN_CLICKED:
             if (action.payload === "Home") {
                 return {
@@ -127,6 +66,7 @@ const analyticsReducers = (state = initalState, action) => {
                 }
             }
 
+        // Kullanıcının hangi sayfada ne kadar süre geçirdiğini hesaplıyor
         case actions.SCREEN_TIME:
             if (action.payload === "Trash") {
                 return {
@@ -180,7 +120,7 @@ const analyticsReducers = (state = initalState, action) => {
                         ScreensSessionTime: {
                             ...state.statistics.ScreensSessionTime,
                             HomeScreen: state.statistics.ScreensSessionTime.HomeScreen + 1
-                        } 
+                        }
                     }
                 }
 

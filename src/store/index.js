@@ -6,6 +6,7 @@ import thunk from 'redux-thunk'
 import storage from "redux-persist/lib/storage";
 import { persistStore, persistReducer } from 'redux-persist';
 
+
 // Reducer'ı import ediliyor.
 import todosReducers from './reducers/todosReducers';
 import themeReducers from './reducers/themeReducers';
@@ -21,7 +22,9 @@ const rootReducer = combineReducers({
 
 // redux-persist ayarları
 const persistConfig = {
-    key: "root",
+    // key: "root",
+    // key: "v1",
+    key: "v1.2",
     debug: true,
     storage,
 }

@@ -96,7 +96,7 @@ class Header extends Component {
                 </View>
                 <View style={styles.right}>
                     <TouchableOpacity onPress={this.toggleTheme}>
-                        {this.props.theme === "light" ? <View style={[styles.themeBtn, { backgroundColor: "#000", }]}><Icon name="moon" size={30} color="#EBC815" /></View> : <View style={[styles.themeBtn, { backgroundColor: "#8cbed6", }]}><Icon name="sunny" size={30} color="#f2f27a" /></View>}
+                        {this.props.theme === "light" ? <View style={[styles.themeBtn, { backgroundColor: "#000", paddingRight: 9, paddingLeft: 9 }]}><Icon name="moon" size={30} color="#EBC815" /></View> : <View style={[styles.themeBtn, { backgroundColor: "#8cbed6", paddingRight: 7, paddingLeft: 7 }]}><Icon name="sunny" size={30} color="#f2f27a" /></View>}
                     </TouchableOpacity>
                 </View>
             </View>
@@ -114,7 +114,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         set_dark: () => dispatch(themeActions.theme_dark()),
         set_light: () => dispatch(themeActions.theme_light()),
-
+        count_theme: () => dispatch(themeActions.count_theme()),
     }
 }
 
@@ -153,8 +153,6 @@ const styles = StyleSheet.create({
     themeBtn: {
         paddingTop: 3,
         paddingBottom: 3,
-        paddingRight: 9,
-        paddingLeft: 9,
         borderRadius: 40
     }
 
