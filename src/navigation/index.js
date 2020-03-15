@@ -1,26 +1,40 @@
 import React from 'react'
-import {Dimensions} from 'react-native'
+import { Dimensions } from 'react-native'
 
 
-// Screen'lar import ediliyor.
-import AddScreen from '../screens/Add/AddScreen';
+// Screen'lar import ediliyor. 
+
+//Drawer Screens
 import HomeScreen from '../screens/Home/HomeScreen';
 import TrashScreen from '../screens/Trash/TrashScreen';
 import AboutScreen from '../screens/About/AboutScreen';
-import EditScreen from '../screens/Edit/EditScreen';
 
-import { createAppContainer } from 'react-navigation';
+// StackNavigator Screens
+import AddScreen from '../screens/Add/AddScreen';
+import EditScreen from '../screens/Edit/EditScreen';
+import DetailScreen from '../screens/Detail/DetailScreen';
+
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
+
 
 import Drawer from './Drawer';
 
 
-const navigator = createDrawerNavigator({
+
+const mainDrawer = createDrawerNavigator({
     HomeScreen,
-    AddScreen,
     TrashScreen,
     AboutScreen,
+    AddScreen,
     EditScreen,
+    DetailScreen: {
+        screen: DetailScreen,
+        navigationOptions: {
+            drawerLockMode: 'locked-closed'
+        }
+    }
 }, {
     drawerType: "slide",
     keyboardDismissMode: "none",
@@ -28,6 +42,52 @@ const navigator = createDrawerNavigator({
     overlayColor: 1,
     contentComponent: Drawer,
     drawerWidth: Dimensions.get('window').width / 1.5,
+    hideStatusBar: true
 })
 
-export const AppContainer = createAppContainer(navigator);
+const Stacks = createStackNavigator({
+    mainDrawer: {
+        screen: mainDrawer,
+        navigationOptions: () => {
+            return {
+                headerShown: false
+            }
+        }
+    },
+    AddScreen: {
+        screen: AddScreen,
+        navigationOptions: () => {
+            return {
+                headerShown: false
+            }
+        }
+    },
+    EditScreen: {
+        screen: EditScreen,
+        navigationOptions: () => {
+            return {
+                headerShown: false
+            }
+        }
+    },
+    DetailScreen: {
+        screen: DetailScreen,
+        navigationOptions: () => {
+            return {
+                headerShown: false
+            }
+        }
+    },
+})
+
+
+const Stack = createSwitchNavigator({
+    Stacks,
+    Drawer,
+});
+
+
+
+export const AppContainer = createAppContainer(Stack);
+
+// export const AppNavigator = createAppContainer(navigator);

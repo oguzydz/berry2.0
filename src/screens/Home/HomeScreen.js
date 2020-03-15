@@ -1,15 +1,19 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Text, Button, TouchableOpacity } from 'react-native'
+import { View } from 'react-native'
+
+// Redux
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/analyticsActions';
 
-
+// Styles & Components
 import Header from '../../components/Header';
+import List from '../../components/List';
+import { styles } from './HomeStyles';
+import PopupMenu from '../../components/PopupMenu';
+
 
 
 class HomeScreen extends Component {
-
-
     componentDidMount = () => {
         this.focus = this.props.navigation.addListener('willFocus', () => {
             const timer = setInterval(() => {
@@ -19,43 +23,54 @@ class HomeScreen extends Component {
             this.props.navigation.addListener('willBlur', () => {
                 clearInterval(timer)
             })
-
-            
         })
- 
+
     }
 
-    getState = () => {
-        console.log(this.props)
+    state = {
+        isVisible: false
     }
+
+    openMenu = (todoId) => {
+        this.setState({ PopupMenuActiveId: todoId })
+        this.setState({ isVisible: true })
+
+    }
+
+    actionsMenuClose = () => {
+        this.setState({ isVisible: false })
+    }
+
+
+    styles = () => {
+        if (this.props.theme === "light") {
+            return styles.light;
+        } else {
+            return styles.dark;
+        }
+    }
+
+    navigationWithPush = (routeName, params) => {
+        this.props.navigation.push("AddScreen");
+    };
 
 
     render() {
 
         return (
-            <View style={[styles.container, { backgroundColor: this.props.theme === "light" ? "#5639a1" : "#000", }]}>
+            <View style={this.styles().container}>
                 <Header navigation={this.props.navigation} />
-                <TouchableOpacity onPress={() => this.props.navigation.navigate("TrashScreen")}>
-                    <Text>go trash</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={this.getState}>
-                    <Text>getState</Text>
-                </TouchableOpacity>
+                <List
+                    navigation={this.props.navigation}
+                    screenName={this.props.navigation.state.routeName}
+                    openMenu={this.openMenu}
+                />
+                <PopupMenu todoId={this.state.PopupMenuActiveId} isVisible={this.state.isVisible} actionsMenuClose={this.actionsMenuClose} />
             </View>
         )
     }
 }
 
-
-
-
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#5639a1",
-    }
-})
 
 const mapStateToProps = (state) => {
     return {

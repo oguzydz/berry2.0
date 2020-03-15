@@ -27,7 +27,7 @@ class MenuItem extends Component {
             screenSN
         } = this.props;
 
-        return (
+        return (  
             <TouchableOpacity onPress={() => activePage === index ? nav.toggleDrawer() : this.goFunctions(screenName, screenSN)}>
                 <View style={[styles.container, { backgroundColor: activePage === index ? theme === "light" ? "#eee" : "#bbbbbb" : null }]}>
                     <View style={styles.icon}>

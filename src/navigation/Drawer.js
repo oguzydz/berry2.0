@@ -23,8 +23,8 @@ class Drawer extends Component {
         return (
             <View style={[styles.container, { backgroundColor: theme === "light" ? "#fff" : "#8c8b8c" }]}>
                 <MenuItem screen="TODOS" icon="albums" screenName="HomeScreen" screenSN="Home" nav={nav} activePage={nav.state.index} index={0} theme={theme} />
-                <MenuItem screen="TRASH" icon="trash" screenName="TrashScreen" screenSN="Trash" nav={nav} activePage={nav.state.index} index={2} theme={theme} />
-                <MenuItem screen="ABOUT" icon="finger-print" screenName="AboutScreen" screenSN="About" nav={nav} activePage={nav.state.index} index={3} theme={theme} />
+                <MenuItem screen="TRASH" icon="trash" screenName="TrashScreen" screenSN="Trash" nav={nav} activePage={nav.state.index} index={1} theme={theme} />
+                <MenuItem screen="ABOUT" icon="finger-print" screenName="AboutScreen" screenSN="About" nav={nav} activePage={nav.state.index} index={2} theme={theme} />
             </View>
         )
     }

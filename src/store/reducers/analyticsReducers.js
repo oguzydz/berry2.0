@@ -126,6 +126,24 @@ const analyticsReducers = (state = initalState, action) => {
 
 
             }
+        case actions.BUTTONS_CLICKED:
+
+            const { payload } = action;
+            return {
+                ...state,
+                statistics: {
+                    ...state.statistics,
+                    ButtonsClicked: {
+                        ...state.statistics.ButtonsClicked,
+                        [payload]: state.statistics.ButtonsClicked[payload] + 1
+                    }
+                }
+
+            }
+
+
+
+
     }
     return state;
 }

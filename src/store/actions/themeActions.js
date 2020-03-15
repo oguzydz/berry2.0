@@ -11,4 +11,3 @@ export const theme_dark = () => async dispatch => {
         type: actions.THEME_DARK
     })
 }
-

@@ -54,10 +54,7 @@ export const screenClicked = (screen) => {
     store.dispatch(actions.screen_clicked(screen));
 }
 
-
-export const screenTime = (screen) => {
-    
-}
+ 
 
 
 // hangi ekranda kaç saniye duruyor 

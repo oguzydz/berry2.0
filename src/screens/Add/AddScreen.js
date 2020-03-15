@@ -16,11 +16,13 @@ class AddScreen extends Component {
                 this.props.screen_time("Add")
             }, 1000)
 
+
             this.props.navigation.addListener('willBlur', () => {
                 clearInterval(timer)
             })
         })
 
+        
     }
 
 
@@ -29,7 +31,7 @@ class AddScreen extends Component {
             <View style={{ alignItems: "center", alignContent: "center", flex: 1 }}>
                 <Header navigation={this.props.navigation} />
 
-                <TouchableOpacity onPress={() => this.props.navigation.goBack()} >
+                <TouchableOpacity onPress={() => this.props.navigation.navigate("HomeScreen")} >
                     <Text>Go Back</Text>
                 </TouchableOpacity>
             </View>

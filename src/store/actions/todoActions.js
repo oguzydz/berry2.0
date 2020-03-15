@@ -34,3 +34,8 @@ export const remove_all_todos = () => async dispatch => {
     })
 }
 
+export const init_todos = () => async dispatch => {
+    dispatch({
+        type: actions.INIT_TODOS
+    })
+}

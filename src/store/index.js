@@ -23,8 +23,7 @@ const rootReducer = combineReducers({
 // redux-persist ayarları
 const persistConfig = {
     // key: "root",
-    // key: "v1",
-    key: "v1.2",
+    key: "v1.9.7",
     debug: true,
     storage,
 }

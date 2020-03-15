@@ -1,24 +1,29 @@
-import React, { Component } from 'react'
-import { Text, View, Dimensions, StyleSheet, TouchableOpacity } from 'react-native'
+import React, { Component } from 'react';
+import { Text, View, TouchableOpacity } from 'react-native';
 
-import Constants from 'expo-constants';
+// Yardımcı Libs
+import { withNavigationFocus } from 'react-navigation';
 
+// Styles & Components
 import Icon from '../components/Icon'
+import { styles } from './HeaderStyles';
+import { Colors } from './Colors';
 
-
+// Redux
 import { connect } from 'react-redux';
 import * as themeActions from '../store/actions/themeActions';
+import * as actions from '../store/actions/analyticsActions';
 
-const { width, height } = Dimensions.get('window');
 
 
 
 class Header extends Component {
 
 
-
     toggleMenu = () => {
         const { routeName } = this.props.navigation.state;
+
+        this.props.buttons_clicked("MenuIcon");
 
         if (routeName === "HomeScreen") {
             this.props.navigation.toggleDrawer()
@@ -29,6 +34,8 @@ class Header extends Component {
         } else if (routeName === "AddScreen") {
             this.props.navigation.goBack()
         } else if (routeName === "EditScreen") {
+            this.props.navigation.goBack()
+        } else if (routeName === "DetailScreen") {
             this.props.navigation.goBack()
         }
 
@@ -48,6 +55,8 @@ class Header extends Component {
             return "ADD TODO"
         } else if (routeName === "EditScreen") {
             return "EDIT TODO"
+        } else if (routeName === "DetailScreen") {
+            return "TODO"
         }
 
     }
@@ -56,10 +65,13 @@ class Header extends Component {
     toggleTheme = () => {
         if (this.props.theme === "light") {
             this.props.set_dark();
+            this.props.buttons_clicked("Dark");
         } else if (this.props.theme === "dark") {
             this.props.set_light();
+            this.props.buttons_clicked("Light");
         }
     }
+
 
 
     menuIcon = () => {
@@ -75,28 +87,41 @@ class Header extends Component {
             return "arrow-back"
         } else if (routeName === "EditScreen") {
             return "arrow-back"
+        } else if (routeName === "DetailScreen") {
+            return "arrow-back"
         }
 
     }
 
 
+    styles = () => {
+        if (this.props.theme === "light") {
+            return styles.light;
+        } else {
+            return styles.dark;
+        }
+    }
 
     render() {
+
+
+        const { theme } = this.props;
+
         return (
-            <View style={[styles.container, { backgroundColor: this.props.theme === "light" ? "#5639a1" : "#000", }]}>
-                <View style={styles.left}>
+            <View style={this.styles().container}>
+                <View style={this.styles().left}>
                     <TouchableOpacity onPress={this.toggleMenu}>
-                        <Icon name={this.menuIcon()} size={40} color="white" />
+                        <Icon name={this.menuIcon()} size={40} color={theme === "light" ? Colors.white : Colors.gray} />
                     </TouchableOpacity>
                 </View>
-                <View style={styles.center}>
-                    <Text style={styles.centerText}>
+                <View style={this.styles().center}>
+                    <Text style={this.styles().centerText}>
                         {this.screenTitle()}
                     </Text>
                 </View>
-                <View style={styles.right}>
+                <View style={this.styles().right}>
                     <TouchableOpacity onPress={this.toggleTheme}>
-                        {this.props.theme === "light" ? <View style={[styles.themeBtn, { backgroundColor: "#000", paddingRight: 9, paddingLeft: 9 }]}><Icon name="moon" size={30} color="#EBC815" /></View> : <View style={[styles.themeBtn, { backgroundColor: "#8cbed6", paddingRight: 7, paddingLeft: 7 }]}><Icon name="sunny" size={30} color="#f2f27a" /></View>}
+                        {theme === "light" ? <View style={this.styles().themeBtn}><Icon name="moon" size={30} color="#EBC815" /></View> : <View style={this.styles().themeBtn}><Icon name="sunny" size={30} color="#f2f27a" /></View>}
                     </TouchableOpacity>
                 </View>
             </View>
@@ -114,47 +139,11 @@ const mapDispatchToProps = (dispatch) => {
     return {
         set_dark: () => dispatch(themeActions.theme_dark()),
         set_light: () => dispatch(themeActions.theme_light()),
-        count_theme: () => dispatch(themeActions.count_theme()),
+        buttons_clicked: (button) => dispatch(actions.buttons_clicked(button))
     }
 }
 
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
-
-
-const styles = StyleSheet.create({
-    container: {
-        width: width,
-        height: 95,
-        paddingTop: Constants.statusBarHeight,
-        flexDirection: "row"
-    },
-    left: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center"
-    },
-    center: {
-        flex: 4,
-        alignItems: "center",
-        justifyContent: "center"
-    },
-    centerText: {
-        fontSize: 20,
-        fontWeight: "bold",
-        color: "white"
-    },
-    right: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center"
-    },
-    themeBtn: {
-        paddingTop: 3,
-        paddingBottom: 3,
-        borderRadius: 40
-    }
+export default withNavigationFocus(connect(mapStateToProps, mapDispatchToProps)(Header));
 
 
-})

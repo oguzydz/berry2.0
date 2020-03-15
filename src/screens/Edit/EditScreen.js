@@ -21,6 +21,23 @@ class EditScreen extends Component {
     }
 
 
+    calculateWordCountTitle = () => {
+        const { title, text } = this.props.todo;
+
+        const titleLength = title.trim().split(/\s+/).length // kelime sayacı bu kayıt ederken lazım olacaktır.
+        const textLength = text.trim().split(/\s+/).length
+
+        const checkRateText = width / textLength;
+        const checkRateTitle = width / titleLength;
+
+        if (title.length > 20) {
+            return title.trim().slice(0, 20) + '...';
+        } else {
+            return title
+        }
+
+    }
+
     render() {
         return (
             <View>
