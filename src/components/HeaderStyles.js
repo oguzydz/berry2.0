@@ -1,10 +1,7 @@
 import Constants from 'expo-constants';
 import { Dimensions } from 'react-native';
-
 import { Colors } from './Colors';
-
-
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 export const styles = {
     light: {
@@ -42,7 +39,27 @@ export const styles = {
             backgroundColor: "#000",
             paddingRight: 9,
             paddingLeft: 9,
+        },
+        popupContainer: {
+            width: width / 1.5,
+            height: height,
+            right: 0,
+            position: "absolute",
+            zIndex: 3,
+            backgroundColor: "red",
+            flex: 1,
+            paddingTop: Constants.statusBarHeight,
+        },
+        infoBtn: {
+            borderRadius: 30,
+            // backgroundColor: "#fff",
+            borderWidth: 1,
+            borderColor: "#fff",
+            padding: 16,
+            paddingTop: 0,
+            paddingBottom: 0,
         }
+
     },
     dark: {
         container: {
@@ -78,6 +95,15 @@ export const styles = {
             backgroundColor: "#8cbed6",
             paddingRight: 7,
             paddingLeft: 7,
+        },
+        popupContainer: {
+            width: width / 1.5,
+            height: height,
+            right: 0,
+            position: "absolute",
+            zIndex: 2,
+            backgroundColor: "red",
+            flex: 1
         }
     }
 }

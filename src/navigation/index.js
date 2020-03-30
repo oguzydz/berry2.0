@@ -20,6 +20,7 @@ import { createDrawerNavigator } from 'react-navigation-drawer';
 
 
 import Drawer from './Drawer';
+import Example from '../components/Example';
 
 
 
@@ -76,8 +77,19 @@ const Stacks = createStackNavigator({
             return {
                 headerShown: false
             }
-        }
+        },
     },
+    Example: {
+        screen: Example,
+        navigationOptions: () => {
+            return {
+                headerShown: false
+            }
+        },
+    },
+}, {
+    // initialRouteName: "Example",
+    // initialRouteName: "DetailScreen"
 })
 
 

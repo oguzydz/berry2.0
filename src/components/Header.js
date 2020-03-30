@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, Dimensions } from 'react-native';
 
 // Yardımcı Libs
 import { withNavigationFocus } from 'react-navigation';
@@ -13,7 +13,7 @@ import { Colors } from './Colors';
 import { connect } from 'react-redux';
 import * as themeActions from '../store/actions/themeActions';
 import * as actions from '../store/actions/analyticsActions';
-
+import * as todoActions from '../store/actions/todoActions';
 
 
 
@@ -102,13 +102,28 @@ class Header extends Component {
         }
     }
 
+    state = {
+        todoPopupMenu: true
+    }
+
+    todoInfo = () => {
+        // this.setState({ todoPopupMenu: !this.state.todoPopupMenu })
+        this.props.rightDrawer();
+        console.log("this.props")
+    }
+
+
     render() {
 
 
-        const { theme } = this.props;
+        const { theme, navigation } = this.props;
 
         return (
             <View style={this.styles().container}>
+
+
+             
+
                 <View style={this.styles().left}>
                     <TouchableOpacity onPress={this.toggleMenu}>
                         <Icon name={this.menuIcon()} size={40} color={theme === "light" ? Colors.white : Colors.gray} />
@@ -120,10 +135,21 @@ class Header extends Component {
                     </Text>
                 </View>
                 <View style={this.styles().right}>
-                    <TouchableOpacity onPress={this.toggleTheme}>
-                        {theme === "light" ? <View style={this.styles().themeBtn}><Icon name="moon" size={30} color="#EBC815" /></View> : <View style={this.styles().themeBtn}><Icon name="sunny" size={30} color="#f2f27a" /></View>}
-                    </TouchableOpacity>
+                    {navigation.state.routeName === "DetailScreen" || navigation.state.routeName === "AddScreen" ?
+
+                        <TouchableOpacity onPress={this.todoInfo}>
+                            {/* {theme === "light" ? <View style={this.styles().themeBtn}><Icon name="moon" size={30} color="#EBC815" /></View> : <View style={this.styles().themeBtn}><Icon name="sunny" size={30} color="#f2f27a" /></View>} */}
+                            {theme === "light" ? <View style={this.styles().infoBtn}><Icon name="information" size={33} color="#FFFFFF" /></View> : <View style={this.styles().infoBtn}><Icon name="sunny" size={30} color="#f2f27a" /></View>}
+                        </TouchableOpacity>
+                        :
+                        <TouchableOpacity onPress={this.toggleTheme}>
+                            {theme === "light" ? <View style={this.styles().themeBtn}><Icon name="moon" size={30} color="#EBC815" /></View> : <View style={this.styles().themeBtn}><Icon name="sunny" size={30} color="#f2f27a" /></View>}
+                        </TouchableOpacity>
+                    }
                 </View>
+
+
+
             </View>
         )
     }
@@ -139,7 +165,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         set_dark: () => dispatch(themeActions.theme_dark()),
         set_light: () => dispatch(themeActions.theme_light()),
-        buttons_clicked: (button) => dispatch(actions.buttons_clicked(button))
+        buttons_clicked: (button) => dispatch(actions.buttons_clicked(button)),
     }
 }
 

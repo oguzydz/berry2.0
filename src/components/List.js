@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, FlatList, Dimensions } from 'react-native'
+import { View, FlatList, Dimensions, Text, ScrollView } from 'react-native'
 
 // Redux
 import { connect } from 'react-redux'
@@ -20,6 +20,12 @@ const { width } = Dimensions.get("window");
 
 class List extends Component {
 
+
+
+    componentDidMount = () => {
+        // console.log(this.props.todos)
+    }
+
     openMenu = (todoId) => {
         this.props.openMenu(todoId)
     }
@@ -36,12 +42,12 @@ class List extends Component {
     render() {
 
         return (
-            <View>
+            <View style={{ flex: 1, }}>
                 <FlatList
                     data={this.props.todos}
+                    contentContainerStyle={{ paddingBottom: 100}}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item, index }) => {
-
                         if (index / 3 === 1) {
                             return (
                                 <View>
@@ -83,6 +89,7 @@ class List extends Component {
 
                     }}
                 />
+                {/* <View style={{height: 80}}></View> */}
             </View>
         )
     }

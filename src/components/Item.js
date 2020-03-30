@@ -106,7 +106,7 @@ class Item extends Component {
             relativeTime: {
                 future: '%s',
                 past: '%s',
-                s: 's',
+                s: 'now',
                 ss: '%ss',
                 m: '1m',
                 mm: '%dm',
@@ -127,9 +127,6 @@ class Item extends Component {
         const { nav, todo } = this.props;
         nav.push("DetailScreen", { id: todo.id })
     }
-
-
-
 
 
     renderTodo = () => {

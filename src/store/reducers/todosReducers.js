@@ -45,49 +45,37 @@ const initalState = [{
     isHadTodoList: true,
     isCompletedTodoList: 75,
     id: 3
-}, {
-    title: "Yemek yeasdasdasdasdasdasdasd",
-    text: "Yinelenen bir sayfa içeriğinin okuyucunun dikkatini dağıttığı bilinen bir gerçektir.",
-    createdAt: 1583944283400,
-    editedAt: 1500000000000,
-    words: 10,
-    characters: 120,
-    readTime: 2,
-    lastEditingDevice: "OĞUZ IPHONE'U",
-    isPinned: false,
-    isAlarmed: true,
-    isTrashed: false,
-    isHadTodoList: true,
-    isCompletedTodoList: 75,
-    id: 4
-}, {
-    title: "Yemek yeasdasdasdasdasdasdasd",
-    text: "Yinelenen bir sayfa içeriğinin okuyucunun dikkatini dağıttığı bilinen bir gerçektir.",
-    createdAt: 1583944283400,
-    editedAt: 1500000000000,
-    words: 10,
-    characters: 120,
-    readTime: 2,
-    lastEditingDevice: "OĞUZ IPHONE'U",
-    isPinned: false,
-    isAlarmed: true,
-    isTrashed: true,
-    isHadTodoList: true,
-    isCompletedTodoList: 75,
-    id: 5
 }]
+
+
+// const initalState = []
 
 
 
 const todosReducers = (state = initalState, action) => {
+
+
     switch (action.type) {
         case actions.ADD_TODO:
             return {
                 todos: [
                     ...state.todos,
-                    action.payload
+                    action.payload,
                 ]
             }
+        case actions.START_TODO:
+            return [
+                ...state,
+                action.payload
+            ]
+        case actions.UPDATE_TODO:
+            return state.map(todo => (todo.id === action.payload.id) ? {
+                ...todo,
+                title: action.payload.title,
+                text: action.payload.text,
+
+            } : todo)
+
         case action.INIT_TODOS:
             return {
                 todos: state.todos

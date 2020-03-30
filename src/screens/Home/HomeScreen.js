@@ -10,6 +10,7 @@ import Header from '../../components/Header';
 import List from '../../components/List';
 import { styles } from './HomeStyles';
 import PopupMenu from '../../components/PopupMenu';
+import AddButton from '../../components/AddButton';
 
 
 
@@ -20,11 +21,12 @@ class HomeScreen extends Component {
                 this.props.screen_time("Home")
             }, 1000)
 
+
             this.props.navigation.addListener('willBlur', () => {
                 clearInterval(timer)
+ 
             })
         })
-
     }
 
     state = {
@@ -66,6 +68,10 @@ class HomeScreen extends Component {
                     openMenu={this.openMenu}
                 />
                 <PopupMenu todoId={this.state.PopupMenuActiveId} isVisible={this.state.isVisible} actionsMenuClose={this.actionsMenuClose} />
+
+                <AddButton
+                    nav={this.props.navigation}
+                />
             </View>
         )
     }
@@ -75,7 +81,8 @@ class HomeScreen extends Component {
 const mapStateToProps = (state) => {
     return {
         theme: state.theme.theme,
-        state: state
+        state: state,
+        todos: state.todos
     }
 }
 
