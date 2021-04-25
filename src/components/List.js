@@ -23,7 +23,7 @@ class List extends Component {
 
 
     componentDidMount = () => {
-        // console.log(this.props.todos)
+        console.log(this.props.todos)
     }
 
     openMenu = (todoId) => {

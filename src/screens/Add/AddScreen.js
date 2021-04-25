@@ -120,7 +120,6 @@ class AddScreen extends Component {
                     : null}
 
 
-
                 <Editor
                     setKeyboard={this.setKeyboard}
                     todo={"new"}
@@ -142,6 +141,8 @@ class AddScreen extends Component {
                     </KeyboardAccessoryView>
                     : null
                 }
+
+                
 
             </View>
         )

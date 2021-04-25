@@ -9,6 +9,18 @@ export const styles = {
             flex: 1,
             backgroundColor: Colors.purple,
         },
+
+        editorContainer: {
+            zIndex: -1,
+            backgroundColor: Colors.purple,
+        },
+        textContainer: {
+            zIndex: -1,
+            backgroundColor: Colors.purple,
+            marginBottom: 0
+        },
+
+
         popupContainer: {
             // width: width / 1.5,
             width: width,
@@ -17,6 +29,24 @@ export const styles = {
             position: "absolute",
             flex: 1,
             paddingTop: Constants.statusBarHeight,
+        },
+        titleInput: {
+            width: width,
+            height: 70,
+            color: Colors.white,
+            fontSize: 20,
+            padding: 20,
+            backgroundColor: Colors.purple,
+        },
+        textInput: {
+            width: width,
+            color: Colors.white,
+            fontSize: 20,
+            padding: 20,
+            backgroundColor: Colors.purple,
+            borderBottomColor: Colors.white,
+            marginBottom: 10,
+            height: height - 155
         }
     },
     dark: {

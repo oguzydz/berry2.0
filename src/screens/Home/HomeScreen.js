@@ -36,7 +36,6 @@ class HomeScreen extends Component {
     openMenu = (todoId) => {
         this.setState({ PopupMenuActiveId: todoId })
         this.setState({ isVisible: true })
-
     }
 
     actionsMenuClose = () => {

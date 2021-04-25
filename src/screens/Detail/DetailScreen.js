@@ -1,10 +1,12 @@
 
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity, StyleSheet, Animated, Easing, Keyboard } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, Animated, Easing, Keyboard, ScrollView, TextInput, Dimensions } from 'react-native'
 
 
 // Redux
 import { connect } from 'react-redux'
+import * as Actions from '../../store/actions/todoActions'
+
 
 // Styles & Components
 import Header from '../../components/Header';
@@ -20,32 +22,46 @@ import Editor from '../../components/Editor'
 import { KeyboardAccessoryView } from 'react-native-keyboard-accessory'
 
 
+
+const { width, height } = Dimensions.get('window');
+
+
 class DetailScreen extends Component {
 
-    getTodo = () => {
-        // const { id } = this.props.navigation.state.params;
-        // const { todos } = this.props
-        // const getTodo = todos.filter(todo => todo.id === id);
-        // return getTodo[0];
+
+    constructor(props) {
+        super(props);
+        const { id } = this.props.navigation.state.params;
+        const { todos } = this.props
+        const getTodo = todos.filter(todo => todo.id === id);
+
+        const get = getTodo[0];
+
         const todo = {
-            title: "Okula git",
-            text: "Yinelenen bir sayfa içeriğinin okuyucunun dikkatini dağıttığı bilinen bir gerçektir. Lorem Ipsum kullanmanın amacı, sürekli 'buraya metin gelecek, buraya metin gelecek' yazmaya kıyasla daha dengeli bir harf dağılımı sağlayarak okunurluğu artırmasıdır.",
-            createdAt: 1583944283442,
-            editedAt: 1583944310362,
-            words: 20,
-            characters: 120,
-            readTime: 2,
-            lastEditingDevice: "OĞUZ IPHONE'U",
-            isPinned: true,
-            isAlarmed: true,
-            isTrashed: false,
-            isHadTodoList: false,
-            isCompletedTodoList: 0,
-            id: 1
+            title: get.title,
+            text: get.text,
+            createdAt: get.createdAt,
+            editedAt: new Date().getTime(),
+            words: get.words,
+            characters: get.characters,
+            readTime: get.readTime,
+            lastEditingDevice: get.lastEditingDevice,
+            isPinned: get.isPinned,
+            isAlarmed: get.isAlarmed,
+            isTrashed: get.isTrashed,
+            isHadTodoList: get.isHadTodoList,
+            isCompletedTodoList: get.isCompletedTodoList,
+            id: get.id
         }
 
-        return todo
+
+
+        this.state = {
+            todo: todo
+        }
+
     }
+
 
     styles = () => {
         if (this.props.theme === "light") {
@@ -58,6 +74,9 @@ class DetailScreen extends Component {
     state = {
         visible: false,
         downButton: true,
+        todo: '',
+        height: 40,
+        keyboard: false,
     }
 
     toggleDrawer = () => {
@@ -66,11 +85,34 @@ class DetailScreen extends Component {
         })
     }
 
-
-    componentDidMount = () => {
-        // console.log(this.props)
+    componentDidMount() {
+        this.keyboardDidShowListener = Keyboard.addListener(
+            'keyboardDidShow',
+            this._keyboardDidShow,
+        );
+        this.keyboardDidHideListener = Keyboard.addListener(
+            'keyboardDidHide',
+            this._keyboardDidHide,
+        );
     }
 
+    componentWillUnmount() {
+        this.keyboardDidShowListener.remove();
+        this.keyboardDidHideListener.remove();
+    }
+    _keyboardDidShow = () => {
+        this.setState({
+            keyboard: true
+        })
+    }
+
+    _keyboardDidHide = () => {
+        this.setState({
+            keyboard: false
+        })
+    }
+
+  
     arrowDownBtn = () => {
         Keyboard.dismiss()
         this.setState({ downButton: false })
@@ -81,6 +123,31 @@ class DetailScreen extends Component {
             downButton: true
         })
     }
+
+
+
+    setTitle = (title) => {
+        this.setState(() => ({
+            todo: {
+                ...this.state.todo,
+                title: title
+            }
+        }), () => {
+            this.props.update_todo(this.state.todo)
+        })
+    }
+
+    setText = (text) => {
+        this.setState(() => ({
+            todo: {
+                ...this.state.todo,
+                text: text
+            }
+        }), () => {
+            this.props.update_todo(this.state.todo)
+        })
+    }
+
 
     render() {
 
@@ -103,27 +170,55 @@ class DetailScreen extends Component {
 
 
 
-                <Editor
-                    setKeyboard={this.setKeyboard}
-                    todo={this.props.navigation.state.params.id !== null ? null : this.props.navigation.state.params.id}
-                />
+                <ScrollView
+                    keyboardDismissMode="on-drag"
+                    style={this.styles().editorContainer}>
+
+                    <TextInput
+                        style={this.styles().titleInput}
+                        placeholder="Title"
+                        placeholderTextColor="gray"
+                        onFocus={this.props.setKeyboard}
+                        onChangeText={(text) => this.setTitle(text)}
+                        value={this.state.todo.title}
+                    />
 
 
-                {this.state.downButton === true ?
-                    <KeyboardAccessoryView
-                        style={{ backgroundColor: Colors.purple, borderTopWidth: 0 }}
-                    >
-                        <View
-                            style={{ alignSelf: "flex-end", marginRight: 20, backgroundColor: Colors.white, padding: 2, paddingRight: 10, paddingLeft: 10, borderTopLeftRadius: 5, borderTopRightRadius: 5 }}>
-                            <TouchableOpacity onPress={this.arrowDownBtn}>
-                                <Icon name="arrow-down" size={30} color={Colors.purple} />
-                            </TouchableOpacity>
-                        </View>
-                    </KeyboardAccessoryView>
-                    : null
-                }
+                    <ScrollView
+                        keyboardDismissMode="on-drag"
+                        style={this.styles().textContainer}>
 
-            </View>
+                        <TextInput
+                            style={[this.styles().textInput, { height: this.state.keyboard === true ? height - 425 : height - 155 }]}
+                            onChangeText={(text) => this.setText(text)}
+                            placeholder="Type something"
+                            placeholderTextColor="gray"
+                            multiline={true}
+                            numberOfLines={10}
+                            underlineColorAndroid="transparent"
+                            keyboardShouldPersistTaps='handled'
+                            onFocus={this.props.setKeyboard}
+                            value={this.state.todo.text}
+
+                        />
+
+                    </ScrollView>
+
+                </ScrollView>
+
+                <KeyboardAccessoryView
+                    style={{ backgroundColor: null, borderTopWidth: 0 }}
+                >
+                    <View
+                        style={{ zIndex: -2, alignSelf: "flex-end", marginRight: 20, backgroundColor: Colors.white, padding: 2, paddingRight: 10, paddingLeft: 10, borderTopLeftRadius: 5, borderTopRightRadius: 5 }}>
+                        <TouchableOpacity onPress={this.arrowDownBtn}>
+                            <Icon name="arrow-down" size={30} color={Colors.purple} />
+                        </TouchableOpacity>
+                    </View>
+                </KeyboardAccessoryView>
+
+
+            </View >
         )
     }
 }
@@ -135,5 +230,12 @@ const mapStateToProps = (state) => {
     }
 }
 
+const mapDispatchToProps = dispatch => {
+    return {
+        update_todo: (todo) => dispatch(Actions.update_todo(todo))
+    }
+}
 
-export default connect(mapStateToProps, null)(DetailScreen)
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(DetailScreen)

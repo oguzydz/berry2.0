@@ -25,10 +25,10 @@ export const start_todo = (todoId) => async dispatch => {
 }
 
 
-export const update_todo = (values) => async dispatch => {
+export const update_todo = (todo) => async dispatch => {
     dispatch({
         type: actions.UPDATE_TODO,
-        payload: values
+        payload: todo
     })
 }
 

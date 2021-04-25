@@ -70,12 +70,8 @@ const todosReducers = (state = initalState, action) => {
             ]
         case actions.UPDATE_TODO:
             return state.map(todo => (todo.id === action.payload.id) ? {
-                ...todo,
-                title: action.payload.title,
-                text: action.payload.text,
-
+                ...action.payload
             } : todo)
-
         case action.INIT_TODOS:
             return {
                 todos: state.todos

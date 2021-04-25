@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { TextInput, Dimensions, StyleSheet, KeyboardAvoidingView, TouchableWithoutFeedback, ScrollView, View } from 'react-native'
+import { Dimensions, StyleSheet, KeyboardAvoidingView, TouchableWithoutFeedback, ScrollView, View, TextInput } from 'react-native'
 import { KeyboardAccessoryView } from 'react-native-keyboard-accessory'
 
 // Redux
@@ -22,15 +22,20 @@ class Editor extends Component {
     }
 
     componentDidMount = () => {
+        console.log(this.props.todo)
+        // this.getTodo();
+    }
 
+    getTodo = () => {
         const filtered = this.props.todos.filter(todo => todo.id === this.props.id);
-        this.setState({
-            title: filtered[0].title,
-            text: filtered[0].text,
-            id: filtered[0].id
-        })
 
+        console.log(filtered[0])
 
+        // this.setState({
+        //     title: filtered[0].title,
+        //     text: filtered[0].text,
+        //     id: filtered[0].id
+        // })
 
     }
 
@@ -46,7 +51,6 @@ class Editor extends Component {
 
     render() {
 
-        const filtered = this.props.todos.filter(todo => todo.id === this.props.id);
 
         return (
             <ScrollView
@@ -59,7 +63,7 @@ class Editor extends Component {
                     placeholderTextColor="gray"
                     onFocus={this.props.setKeyboard}
                     onChangeText={(text) => this.setTitle(text)}
-                    // value={filtered[0].title}
+                // value={filtered[0].title}
                 />
 
                 <TextInput
@@ -72,7 +76,7 @@ class Editor extends Component {
                     underlineColorAndroid="transparent"
                     keyboardShouldPersistTaps='handled'
                     onFocus={this.props.setKeyboard}
-                    // value={filtered[0].text}
+                // value={filtered[0].text}
 
                 />
 
